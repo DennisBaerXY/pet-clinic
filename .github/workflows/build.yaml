@@ -39,8 +39,14 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=DennisBaerXY_pet-clinic
 
-  # deploy:    
-  #   name: Build # Your custom step name
-  #   steps
+  deploy:    
+    name: Build # Your custom step name
+    steps:
+    - name: Heroku Login
+      run:  heroku container:login
+    - name: Herok
+      run:  heroku stack:set container --app ${APP_NAME} 
+    - name: Release container
+      run: heroku container:release web --app ${APP_NAME}
 
      
