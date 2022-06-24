@@ -33,6 +33,7 @@ jobs:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
+  build:
     - name: Build and analyze
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
@@ -40,7 +41,7 @@ jobs:
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=DennisBaerXY_pet-clinic
 
       
-  
+  deploy:
     - name: Compile, build and push
       run: heroku container:login | mvn packages |  docker build --tag registry.heroku.com/${APP_NAME}/web -f Dockerfile . | docker push registry.heroku.com/${APP_NAME}/web
 
