@@ -39,7 +39,8 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=DennisBaerXY_pet-clinic
 
-  deploy:    
+  deploy:   
+    runs-on: ubuntu-20.04 
     name: Build # Your custom step name
     steps:
     - name: Heroku Login
